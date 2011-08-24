@@ -1,34 +1,63 @@
+# = ^ . ^ =
 
+# Programs
 GIT=git
 ECHO=echo
 NATURALDOCS=naturaldocs
 
+# user
 USER?=nobody
-HOST=bug.seguridad.unam.mx
-PULL_PATH=/ext/pbscg6/pbscg6_e1
+
+# ports
 GIT_PORT=9418
-PUSH_PATH=/home/repository/ext/pbscg6/pbscg6_e1/
 SSH_PORT=2290
 
+# bug
+BUG_HOST=bug.seguridad.unam.mx
+BUG_PULL=/ext/pbscg6/pbscg6_e1
+BUG_PUSH=/home/repository/ext/pbscg6/pbscg6_e1/
+BUG_PULL_URI=git://${BUG_HOST}:${GIT_PORT}${BUG_PULL}
+BUG_PUSH_URI=ssh://${USER}@${BUG_HOST}:${SSH_PORT}${BUG_PUSH}
+
+# github
+GITHUB_HOST=github.com
+GITHUB_REPO=/pbscg6_e1.git
+GITHUB_OWNER=tonejito
+GITHUB_PULL_URI=git://${GITHUB_HOST}/${GITHUB_OWNER}${GITHUB_REPO}
+GITHUB_PUSH_URI=git@${GITHUB_HOST}:${GITHUB_OWNER}${GITHUB_REPO}
+
+# documentation
 DOC_SRC=./
 DOC_FORMAT=html
 DOC_DIR=../docs
 DOC_PROJECT=../project.nd
 
-.PHONY:	config	clone	pull	push	docs
+# targets
+.PHONY:	config	docs	clone	pull	push	gclone	gpull	gpush
 config:	
 	${ECHO} ${GIT} config --global user.name  "${USER}"
 	${ECHO} ${GIT} config --global user.email "${USER}@server.tld"
 
-clone:	
-	${GIT} clone git://${HOST}:${GIT_PORT}${PULL_PATH}
-
-pull:	
-	${GIT} pull
-
-push:	
-	${GIT} push ssh://${USER}@${HOST}:${SSH_PORT}${PUSH_PATH}
-
 docs:	
 	${NATURALDOCS} -i ${DOC_SRC} -o ${DOC_FORMAT} ${DOC_DIR} -p ${DOC_PROJECT}
+
+# bug targets
+clone:	
+	${GIT} clone ${BUG_PULL_URI}
+
+pull:	
+	${GIT} pull  ${BUG_PULL_URI}
+
+push:	
+	${GIT} push  ${BUG_PUSH_URI}
+
+# github targets
+gclone:	
+	${GIT} glone ${GITHUB_PULL_URI}
+
+gpull:	
+	${GIT} pull  ${GITHUB_PULL_URI}
+
+gpush:	
+	${GIT} push  ${GITHUB_PUSH_URI}
 
