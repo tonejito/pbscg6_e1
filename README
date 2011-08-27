@@ -1,2 +1,32 @@
-Bienvenido al repositorio
-May the force be with you
+Plan de Becarios de Seguridad en Cómputo 2011
+Proyecto Perl
+Procesamiento de SPAM
+
+Integrantes
+
+Andrés Leonardo Hernández Bermúdez
+Miguel Raúl Bautista Soria
+Ricardo Fernandez del Castillo
+
+Actividades
+
+Andrés Leonardo Hernández Bermúdez
+Módulos:
+	Configuracion
+		mod_perl
+		Archivo de configuracion
+		Parametros del programa
+	Dominios
+		Dominios fuente
+		Dominios destino
+
+Miguel Raúl Bautista Soria
+Módulos:
+	Subjects
+	Decodificacion de adjuntos
+
+Ricardo Fernandez del Castillo
+Módulos:
+	IP
+	URL
+
