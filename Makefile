@@ -33,7 +33,7 @@ DOC_DIR=../docs
 DOC_PROJECT=../project.nd
 
 # targets
-.PHONY:	config	docs	clone	pull	push	gclone	gpull	gpush
+.PHONY:	config	docs	pull	push	bclone	bpull	bpush	gclone	gpull	gpush
 config:	
 	${ECHO} ${GIT} config --global user.name  "${USER}"
 	${ECHO} ${GIT} config --global user.email "${USER}@server.tld"
@@ -41,14 +41,19 @@ config:
 docs:	
 	${NATURALDOCS} -i ${DOC_SRC} -o ${DOC_FORMAT} ${DOC_DIR} -p ${DOC_PROJECT}
 
+# git meta targets
+pull:	bpull	gpull
+
+push:	bpush	gpush
+
 # bug targets
-clone:	
+bclone:	
 	${GIT} clone ${BUG_PULL_URI}
 
-pull:	
+bpull:	
 	${GIT} pull  ${BUG_PULL_URI}
 
-push:	
+bpush:	
 	${GIT} push  ${BUG_PUSH_URI}
 
 # github targets
