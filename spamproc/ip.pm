@@ -61,7 +61,7 @@ sub backlistedSourceAddresses
 	foreach my $addr (keys %addresses)
 	{
 		# Agrega al hash de elementos en lista negra si se listo como malo.
-		$blacklistedAddresses{$addr}++ if ($addr and isBlacklistedIP($addr));
+		$blacklistedAddresses{$addr} = $addresses{$addr} if ($addr and isBlacklistedIP($addr));
 	}
 }
 

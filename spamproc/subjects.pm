@@ -40,11 +40,10 @@ sub printSubjectsBlacklist
 	logmsg($LOGFILE,"subjects blacklist");
 	separator "subjects blacklist";
 	#foreach my $item (sort {$blacklistedSubjects{$b} <=> $blacklistedSubjects{$a}} keys %blacklistedSubjects)
-	print "bla\n";
 	foreach my $item (keys %blacklistedSubjects)
 	{
 		logmsg($LOGFILE,$item."\t".$blacklistedSubjects{$item}) if ($verbose);
-		print $item."\t".$blacklistedSubjects{$item}."\t".comparaBlackList($item)."\n";
+		print $item."\t".$blacklistedSubjects{$item}."\t".isBlacklistedSubject($item)."\n";
 	}
 }
 
@@ -53,13 +52,15 @@ sub printSubjectsBlacklist
 sub isBlacklistedSubject
 {
 	my $subj = shift;
+	my $ret;
 	# Itera en la lista negra
 	foreach my $entry (keys %blacklist_pattern)
 	{
 		# Agrega al hash de elementos en lista negra si se listo como malo.
-		return $subj if ($subj  =~ /$entry/i);
+		$ret.=$entry."\t" if ($subj  =~ /$entry/i);
 	}
-	return 0;
+	return undef if (!$ret);
+        return $ret;
 }
 
 ########	########	########	########	########	
@@ -70,9 +71,8 @@ sub blacklistSubjects
 	foreach my $subj (keys %subjects)
 	{
 		# Agrega al hash de elementos en lista negra si se listo como malo.
-		$blacklistedSubjects{$subj}++ if (isBlacklistedSubject($subj));
+		$blacklistedSubjects{$subj} = $subjects{$subj} if (isBlacklistedSubject($subj));
 	}
-	isBlacklistedSubject("");
 }
 
 ########	########	########	########	########	
@@ -86,14 +86,12 @@ sub comparaBlackList
                 chomp;
                 if($elemento =~ /$_/i)
                 {
-                	#print "|---------------------------------------|\n";
-                        $ret .= "$_<br/>";
-                        #$ret .= "\t$_<br/>";
+                	$ret .= "$_<br/>";
                 }
         }
         # Regresa al principio del archivo de lista negra
         seek($PATTERN_BL,0,0);
-        $ret = 0 if ($ret eq "");
+        return undef if ($ret eq "");
         return $ret;
 }
 

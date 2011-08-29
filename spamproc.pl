@@ -31,7 +31,6 @@ initialize();
 #Magic
 doIt();
 
-separator "\n";
 closeFiles();
 
 ########	########	########	########	########	
@@ -125,10 +124,10 @@ sub doIt
 			$tot_subject++;
 		}
 	}
-	##printBlacklist();
+	printBlacklist();
 	# Domains
 	processDomains();
-	#resolveDomains();
+#	resolveDomains();
 	printResolvedDomains();
 	printSourceAddresses();
 	# Source Addresses
@@ -141,14 +140,9 @@ sub doIt
 	blacklistSubjects();
 	printSubjectsBlacklist();
 	# Attachments
-	#saveAttachments();
-	one();
-	two();
-	three();
-	four();
-	five();
-	six();
-	print $OUTFILE "$html"."</body></html>";
+#	saveAttachments();
+	report();
+	print $OUTFILE $html;
 }
 
 # = ^ . ^ =
