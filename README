@@ -6,27 +6,27 @@ Integrantes
 
 Andrés Leonardo Hernández Bermúdez
 Miguel Raúl Bautista Soria
-Ricardo Fernandez del Castillo
+Ricardo González del Castillo
 
-Actividades
+Módulos
+	Andrés Leonardo Hernández Bermúdez
+		spamproc
+		spamproc::config
+		spamproc::log
+		spamproc::regex
+		spamproc::domains
+		spamproc::email
 
-Andrés Leonardo Hernández Bermúdez
-Módulos:
-	Configuracion
-		mod_perl
-		Archivo de configuracion
-		Parametros del programa
-	Dominios
-		Dominios fuente
-		Dominios destino
+	Miguel Raúl Bautista Soria
+		spamproc::subjects
+		spamproc::attachments
 
-Miguel Raúl Bautista Soria
-Módulos:
-	Subjects
-	Decodificacion de adjuntos
+	Ricardo González del Castillo
+		spamproc::ip
+		spamproc::url
 
-Ricardo Fernandez del Castillo
-Módulos:
-	IP
-	URL
-
+Módulos externos
+	use Net::DNS::Nslookup;
+	use MIME::Parser;
+	use Mail::MboxParser;
+	use Mail::MboxParser::Mail;
