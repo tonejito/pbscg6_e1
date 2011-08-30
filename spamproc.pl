@@ -143,10 +143,11 @@ sub doIt
 	blacklistSubjects();
 	printSubjectsBlacklist();
 	# Attachments
-	print "<hr/>";
+	print "<hr/>\n";
 	saveAttachments();
 	report();
 	print $html;
+	print $OUTFILE $html;
 }
 
 # = ^ . ^ =

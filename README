@@ -10,6 +10,7 @@ Ricardo González del Castillo
 
 Módulos
 	Andrés Leonardo Hernández Bermúdez
+		CGI
 		spamproc
 		spamproc::config
 		spamproc::log
@@ -30,3 +31,35 @@ Módulos externos
 	use MIME::Parser;
 	use Mail::MboxParser;
 	use Mail::MboxParser::Mail;
+
+Configuracion de Apache HTTPD para modo CGI
+
+RedirectMatch ^/Perl$ /Perl/cgi/spamproc.pl
+RedirectMatch ^/Perl/$ /Perl/cgi/spamproc.pl
+RedirectMatch ^/Perl/cgi/$ /Perl/cgi/spamproc.pl
+ScriptAlias /Perl/cgi/ /home/tonejito/perl/pbscg6_e1/
+<Directory "/home/tonejito/perl/pbscg6_e1/">
+  AllowOverride None
+  Options +ExecCGI -MultiViews +SymLinksIfOwnerMatch -Indexes
+  Order allow,deny
+  Allow from all
+</Directory>
+
+RedirectMatch ^/Perl/files$ /Perl/files/
+Alias /Perl/files/ /tmp/dir/
+<Directory "/tmp/dir/">
+  AllowOverride None
+  Options Indexes -ExecCGI -MultiViews +SymLinksIfOwnerMatch
+  Order allow,deny
+  Allow from all
+</Directory>
+
+Modos de ejecucion
+
+    - Terminal
+      ./spamproc.pl [OPCIONES] > reporte.html
+    
+    - CGI
+      ./spamproc.html (la salida se muestra en la pagina web)
+
+

@@ -30,8 +30,8 @@ our %blacklist_ip;
 # Output
 our $logfile	= "/tmp/log";
 our $LOGFILE	= *LOGFILE;
-our $outfile	= "output";
-our $OUTFILE	= *STDERR;
+our $outfile	= "/tmp/files/reporte.html";
+our $OUTFILE	= *OUTFILE;
 our $out_url	= "output.url";
 our $OUT_URL	= *OUT_URL;
 our $usrfile	= "output.user";
