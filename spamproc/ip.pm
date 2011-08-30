@@ -70,11 +70,11 @@ sub backlistedSourceAddresses
 sub printSourceAddresses
 {
 	logmsg($LOGFILE,"source addresses");
-	separator "source addresses";
+	separator "source addresses" if ($verbose);
 	foreach my $key (sort {$addresses{$b} <=> $addresses{$a}} keys %addresses)
 	{
 		logmsg($LOGFILE,$key."\t".$addresses{$key}) if ($verbose);
-		print $key."\t".$addresses{$key}."\n";
+		print $key."\t".$addresses{$key}."\n" if ($verbose);
 	}
 }
 
@@ -83,11 +83,11 @@ sub printSourceAddresses
 sub printBlacklistedAddresses
 {
 	logmsg($LOGFILE,"blacklisted addresses");
-	separator "blacklisted addresses";
+	separator "blacklisted addresses" if ($verbose);
 	foreach my $key (sort {$blacklistedAddresses{$a} <=> $blacklistedAddresses{$b}} keys %blacklistedAddresses)
 	{
 		logmsg($LOGFILE,$key."\t".$blacklistedAddresses{$key}) if ($verbose);
-		print $key."\t".$blacklistedAddresses{$key}."\n";
+		print $key."\t".$blacklistedAddresses{$key}."\n" if ($verbose);
 	}
 }
 

@@ -12,7 +12,8 @@ our @EXPORT=qw($verbose $top $input $INPUT $domain_bl $DOMAIN_BL %blacklist_doma
 our $verbose	= 0;
 our $top	= 20;
 # Input
-our $input	= "input";
+our $input	= "fileinfo.txt";
+#our $input	= "procregex.log";
 our $INPUT	= *INPUT;
 our $domain_bl	= "blacklist.domain";
 our $DOMAIN_BL	= *DOMAIN_BL;
@@ -27,13 +28,13 @@ our %blacklist_ip;
 our $logfile	= "/tmp/log";
 our $LOGFILE	= *LOGFILE;
 our $outfile	= "output";
-our $OUTFILE	= *OUTFILE;
-our $out_url	= "file.url";
+our $OUTFILE	= *STDERR;
+our $out_url	= "output.url";
 our $OUT_URL	= *OUT_URL;
-our $usrfile	= "file.user";
+our $usrfile	= "output.user";
 our $USRFILE	= *USRFILE;
 # Output Directory
-our $out_bindir	= "/tmp/dir";
+our $out_bindir	= "/tmp/dir/";
 
 # = ^ . ^ =
 1;

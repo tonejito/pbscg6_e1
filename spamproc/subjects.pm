@@ -25,11 +25,11 @@ our @EXPORT=qw(%subjects $tot_subject %blacklistedSubjects printSubjects printSu
 sub printSubjects
 {
 	logmsg($LOGFILE,"subjects");
-	separator "subjects";
+	separator "subjects" if ($verbose);
 	foreach my $item (sort {$subjects{$b} <=> $subjects{$a}} keys %subjects)
 	{
 		logmsg($LOGFILE,$item."\t".$subjects{$item}) if ($verbose);
-		print $item."\t".$subjects{$item}."\n";
+		print $item."\t".$subjects{$item}."\n" if ($verbose);
 	}
 }
 
@@ -38,12 +38,12 @@ sub printSubjects
 sub printSubjectsBlacklist
 {
 	logmsg($LOGFILE,"subjects blacklist");
-	separator "subjects blacklist";
+	separator "subjects blacklist" if ($verbose);
 	#foreach my $item (sort {$blacklistedSubjects{$b} <=> $blacklistedSubjects{$a}} keys %blacklistedSubjects)
 	foreach my $item (keys %blacklistedSubjects)
 	{
 		logmsg($LOGFILE,$item."\t".$blacklistedSubjects{$item}) if ($verbose);
-		print $item."\t".$blacklistedSubjects{$item}."\t".isBlacklistedSubject($item)."\n";
+		print $item."\t".$blacklistedSubjects{$item}."\t".isBlacklistedSubject($item)."\n" if ($verbose);
 	}
 }
 
@@ -60,7 +60,7 @@ sub isBlacklistedSubject
 		$ret.=$entry."\t" if ($subj  =~ /$entry/i);
 	}
 	return undef if (!$ret);
-        return $ret;
+    return $ret;
 }
 
 ########	########	########	########	########	

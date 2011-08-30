@@ -27,7 +27,7 @@ sub logmsg
 	# Si no hay funcion, entonces se esta llamando desde main
 	$currentFunction = 'main' if (!$currentFunction);
 	(my $sec,my $min,my $hour,my $mday,my $mon,my $year,my $wday,my $yday,my $isdst)=localtime(time);
-	printf LOG "[%02d-%02d-%04d %02d:%02d:%02d][$currentFunction] %s\n",$mon+1,$mday,$year+1900,$hour,$min,$sec,$msg;
+	printf LOG "[%02d-%02d-%04d %02d:%02d:%02d][$currentFunction] %s\n",$mon+1,$mday,$year+1900,$hour,$min,$sec,$msg if ($verbose);
 }
 
 ########	########	########	########	########	

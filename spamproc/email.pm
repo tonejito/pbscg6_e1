@@ -26,27 +26,27 @@ our @EXPORT=qw(%recipients %mails %dst_users %dst_domains processMailAddresses);
 sub processMailAddresses
 {
 	logmsg($LOGFILE,"target email");
-	separator "target email";
+	separator "target email" if ($verbose);
 	foreach my $m (sort {$mails{$b} <=> $mails{$a}} keys %mails)
 	{
 		logmsg($LOGFILE,$m."\t".$mails{$m}) if ($verbose);
-		print $m."\t".$mails{$m}."\n";
+		print $m."\t".$mails{$m}."\n" if ($verbose);
 	}
 	
 	logmsg($LOGFILE,"target users");
-	separator "target users";
+	separator "target users" if ($verbose);
 	foreach my $user (sort {$dst_users{$b} <=> $dst_users{$a}} keys %dst_users)
 	{
 		logmsg($LOGFILE,$user."\t".$dst_users{$user}) if ($verbose);
-		print $user."\t".$dst_users{$user}."\n";
+		print $user."\t".$dst_users{$user}."\n" if ($verbose);
 	}
 	
 	logmsg($LOGFILE,"target domains");
-	separator "target domains";
+	separator "target domains" if ($verbose);
 	foreach my $domain (sort {$dst_domains{$b} <=> $dst_domains{$a}} keys %dst_domains)
 	{
 		logmsg($LOGFILE,$domain."\t".$dst_domains{$domain}) if ($verbose);
-		print $domain."\t".$dst_domains{$domain}."\n";
+		print $domain."\t".$dst_domains{$domain}."\n" if ($verbose);
 	}
 }
 

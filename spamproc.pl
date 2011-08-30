@@ -21,23 +21,26 @@ use spamproc::attachment;
 
 use spamproc::html;
 
-=begin NaturalDocs
-	Package: spamproc
-	Description: Programa principal. Proyecto Perl - Plan de Becarios de Seguridad en Cómputo 2011.
-=cut
+printf("Content-Type: text/html;charset=utf-8\n");
+printf("Cache-Control: max-age=1\n");
+printf("Pragma: no-cache\n");
+printf("Refresh: 3600\n");
+printf("Retry-After: 600\n");
+printf("Warning: May contain viruses\n");
+printf("\n");
 
 initialize();
 
 #Magic
 doIt();
 
-closeFiles();
+#closeFiles();
 
 ########	########	########	########	########	
 #	Parseo de los argumentos de linea de comandos
 sub initialize
 {
-	separator "initialize";
+	separator "initialize" if ($verbose);
 	foreach my $arg (@ARGV)
 	{
 		# Separa la opcion y el valor
@@ -124,10 +127,10 @@ sub doIt
 			$tot_subject++;
 		}
 	}
-	printBlacklist();
+	#printBlacklist();
 	# Domains
 	processDomains();
-#	resolveDomains();
+	resolveDomains();
 	printResolvedDomains();
 	printSourceAddresses();
 	# Source Addresses
@@ -140,9 +143,15 @@ sub doIt
 	blacklistSubjects();
 	printSubjectsBlacklist();
 	# Attachments
-#	saveAttachments();
+	print "<hr/>";
+	saveAttachments();
 	report();
-	print $OUTFILE $html;
+	print $html;
 }
 
 # = ^ . ^ =
+
+=begin NaturalDocs
+	Package: spamproc
+	Description: Programa principal. Proyecto Perl - Plan de Becarios de Seguridad en Cómputo 2011.
+=cut

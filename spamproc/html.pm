@@ -66,15 +66,25 @@ sub report
 {
 	$html.="<html>"."\n";
 	$html.="<head>"."\n";
+	$html.="<title>Proyecto Perl - Plan de Becarios de Seguridad en Cómputo</title>"."\n";
 	$html.=$style."\n";
 	$html.="</head>"."\n";
 	$html.="<body>"."\n";
+	$html.="<table  class='gridtable'>"."\n";
+	$html.="<caption></caption>"."\n";
+	$html.='<tr><th>Integrantes</th></tr>'."\n";
+	$html.='<tr><td>Andrés Leonardo Hernández Bermúdez</td></tr>'."\n";
+	$html.='<tr><td>Miguel Raúl Bautista Soria</th></td>'."\n";
+	$html.='<tr><td>RicardoGonzález del Castillo</th></td>'."\n";
+	$html.="</table>"."\n";
+	$html.="<br/>"."\n";
 	one();
 	two();
 	three();
 	four();
 	five();
 	six();
+	seven();
 	$html.="</body>"."\n";
 	$html.="</html>"."\n";
 }
@@ -212,7 +222,7 @@ sub six
 
 sub seven
 {
-	
+		$html.='<a href="/Perl/files/">Archivos adjuntos</a>'."\n";
 }
 
 # = ^ . ^ =
