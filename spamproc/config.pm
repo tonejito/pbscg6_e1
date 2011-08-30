@@ -7,9 +7,12 @@ package spamproc::config;
 # Se utiliza exporter para exportar las variables definidas en el arreglo EXPORT
 require Exporter;  
 our @ISA = qw(Exporter);  
-our @EXPORT=qw($verbose $top $input $INPUT $domain_bl $DOMAIN_BL %blacklist_domain $pattern_bl $PATTERN_BL %blacklist_pattern $ip_bl $IP_BL %blacklist_ip $logfile $LOGFILE $outfile $OUTFILE $out_url $OUT_URL $usrfile $USRFILE $out_bindir);
+our @EXPORT=qw($verbose $debug $resolve $top $input $INPUT $domain_bl $DOMAIN_BL %blacklist_domain $pattern_bl $PATTERN_BL %blacklist_pattern $ip_bl $IP_BL %blacklist_ip $logfile $LOGFILE $outfile $OUTFILE $out_url $OUT_URL $usrfile $USRFILE $out_bindir);
 
-our $verbose	= 0;
+our $verbose	= 1;
+our $debug	= 0;
+# Si es 1 resuelve las direcciones IP a dominios
+our $resolve = 0;
 our $top	= 20;
 # Input
 our $input	= "fileinfo.txt";

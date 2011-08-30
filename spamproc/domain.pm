@@ -29,11 +29,11 @@ our @EXPORT=qw($keep %addresses %domains %resolved processDomains resolveDomains
 sub processDomains
 {
 	logmsg($LOGFILE,"source domains");
-	separator "source domains" if ($verbose);
+	separator "source domains" if ($debug);
 	foreach my $key (sort {$domains{$b} <=> $domains{$a}} keys %domains)
 	{
 		logmsg($LOGFILE,$key."\t".$domains{$key}) if ($verbose);
-		print $key."\t".$domains{$key}."\n" if ($verbose);
+		print $key."\t".$domains{$key}."\n" if ($debug);
 	}
 }
 
@@ -42,7 +42,7 @@ sub processDomains
 sub resolveDomains
 {
 	logmsg($LOGFILE,"nslookup");
-	separator "nslookup" if ($verbose);
+	separator "nslookup" if ($debug);
 	foreach my $domain (sort {$domains{$b} <=> $domains{$a}} keys %domains)
 	{
 		my $response = Net::DNS::Nslookup->get_ips($domain);
@@ -55,7 +55,7 @@ sub resolveDomains
 			# El dominio se descarta de cada linea
 			my $dom = $x[0];
 			logmsg($LOGFILE,$dom."\t\t".$x[1]) if ($verbose);
-			print $dom."\n\t".$x[1]."\n" if ($verbose);
+			print $dom."\n\t".$x[1]."\n" if ($debug);
 			
 			# Agrega la IP resuelta a la lista
 			$resolved{$dom}.=$x[1]." ";
@@ -71,11 +71,11 @@ sub printResolvedDomains
 {
 	foreach my $domain (keys %resolved)
 	{
-		print $domain."\n" if ($verbose);
+		print $domain."\n" if ($debug);
 		foreach my $address ($resolved{$domain})
 		{
 			logmsg($LOGFILE,$address) if ($verbose);
-			print "\t".$address."\n" if ($verbose);
+			print "\t".$address."\n" if ($debug);
 		}
 	}
 }

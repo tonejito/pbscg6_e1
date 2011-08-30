@@ -104,13 +104,13 @@ sub buildBlacklist
 #	
 sub printBlacklist
 {
-	separator "ip blacklist";
+	separator "ip blacklist" if ($debug);
 	print $_."\n" foreach (keys %blacklist_ip);
 	
-	separator "domain blacklist";
+	separator "domain blacklist" if ($debug);
 	print $_."\n" foreach (keys %blacklist_domain);
 	
-	separator "pattern blacklist";
+	separator "pattern blacklist" if ($debug);
 	print $_."\n" foreach (keys %blacklist_pattern);
 }
 

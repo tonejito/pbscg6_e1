@@ -25,11 +25,11 @@ our @EXPORT=qw(%subjects $tot_subject %blacklistedSubjects printSubjects printSu
 sub printSubjects
 {
 	logmsg($LOGFILE,"subjects");
-	separator "subjects" if ($verbose);
+	separator "subjects" if ($debug);
 	foreach my $item (sort {$subjects{$b} <=> $subjects{$a}} keys %subjects)
 	{
 		logmsg($LOGFILE,$item."\t".$subjects{$item}) if ($verbose);
-		print $item."\t".$subjects{$item}."\n" if ($verbose);
+		print $item."\t".$subjects{$item}."\n" if ($debug);
 	}
 }
 
@@ -38,12 +38,12 @@ sub printSubjects
 sub printSubjectsBlacklist
 {
 	logmsg($LOGFILE,"subjects blacklist");
-	separator "subjects blacklist" if ($verbose);
+	separator "subjects blacklist" if ($debug);
 	#foreach my $item (sort {$blacklistedSubjects{$b} <=> $blacklistedSubjects{$a}} keys %blacklistedSubjects)
 	foreach my $item (keys %blacklistedSubjects)
 	{
 		logmsg($LOGFILE,$item."\t".$blacklistedSubjects{$item}) if ($verbose);
-		print $item."\t".$blacklistedSubjects{$item}."\t".isBlacklistedSubject($item)."\n" if ($verbose);
+		print $item."\t".$blacklistedSubjects{$item}."\t".isBlacklistedSubject($item)."\n" if ($debug);
 	}
 }
 

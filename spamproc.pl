@@ -40,7 +40,7 @@ doIt();
 #	Parseo de los argumentos de linea de comandos
 sub initialize
 {
-	separator "initialize" if ($verbose);
+	separator "initialize" if ($debug);
 	foreach my $arg (@ARGV)
 	{
 		# Separa la opcion y el valor
@@ -130,7 +130,7 @@ sub doIt
 	#printBlacklist();
 	# Domains
 	processDomains();
-	resolveDomains();
+	resolveDomains() if ($resolve);
 	printResolvedDomains();
 	printSourceAddresses();
 	# Source Addresses
