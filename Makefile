@@ -57,6 +57,9 @@ bpush:
 	${GIT} push  ${BUG_PUSH_URI}
 
 # github targets
+gfetch:	
+	${GIT} fetch ${GITHUB_PULL_URI}
+
 gclone:	
 	${GIT} glone ${GITHUB_PULL_URI}
 

@@ -6,11 +6,6 @@ scripts/*
 
 Makefile.test
 
-blacklist.domain
-blacklist.ip
-blacklist.ip.long
-blacklist.pattern
-
 output
 output.url
 output.user
