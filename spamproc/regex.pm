@@ -10,7 +10,7 @@ our $verbose;
 # Se utiliza exporter para exportar las variables definidas en el arreglo EXPORT
 require Exporter;  
 our @ISA = qw(Exporter);  
-our @EXPORT=qw($tld $cctld $domain_regex $ip_regex $enclosed_ip_regex $user_regex $mail_regex $displayName $encodedDisplayName $To_regex $Received_regex $Received_line $Subject_regex);
+our @EXPORT=qw($tld $cctld $domain_regex $protocol_regex $path_regex $url_regex $ip_regex $enclosed_ip_regex $user_regex $mail_regex $displayName $encodedDisplayName $To_regex $Received_regex $Received_line $Subject_regex);
 
 # Expresiones regulares
 # Dominios de internet
@@ -23,6 +23,15 @@ our $cctld = '((a(c|d|e|f|g|i|l|m|n|o|q|r|s|t|u|w|x|z))|(b(a|b|d|e|f|g|h|i|j|m|n
 
 # Dominio de internet
 our $domain_regex = '[\w\d]+(\.?[\w\d\-])*\.(('.$tld.'(\.'.$cctld.')?)|'.$cctld.')';
+
+# Protocolo asociado con la URL
+our $protocol_regex = '(f|ht)tps?://' ;
+
+# Ruta de la URL
+our $path_regex = '[\w\d\-\/\+_.,:=#%]+';
+
+# Expresion regular para URL
+our $url_regex = $protocol_regex.'('.$domain_regex.')'.$path_regex;
 
 # Direccion IP
 our $ip_regex = '(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})';
@@ -55,7 +64,7 @@ our $Subject_regex = '^Subject:\ (.*)$';
 # = ^ . ^ =
 1;
 
-=Begin NaturalDocs
+=begin NaturalDocs
 	Package: spamproc::domain
 	Description: 
 =cut

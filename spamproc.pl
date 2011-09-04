@@ -7,6 +7,7 @@ package spamproc;
 our $conf;
 our $verbose;
 our $logfile;
+#our %url = ();
 
 use spamproc::config;
 use spamproc::log;
@@ -81,7 +82,7 @@ sub doIt
 		chomp;
 		# Procesa las lineas de destinatario
 		# TODO Arreglar para que no solo haga match a la primer direccion de correo electronico.
-		if ($_ =~ /$To_regex/)
+		if ($_ =~ /$To_regex/i)
 		{
 			$mails{$3}++;
 			$dst_users{$4}++;
@@ -89,14 +90,14 @@ sub doIt
 			logmsg($LOGFILE,$3) if ($verbose);
 		}
 		# Procesa todas las lineas received
-		if ( $_ =~ /$Received_regex/ )
+		if ($_ =~ /$Received_regex/i)
 		{
 			$keep = 1;
 		}
 		else
 		{
 			# Sigue procesando la siguiente linea si esta identada con espacios o tabuladores
-			if ($keep && $_ =~ /$Received_line/ )
+			if ($keep && $_ =~ /$Received_line/i)
 			{
 				$keep = 1;
 			}
@@ -116,36 +117,45 @@ sub doIt
 			}
 		}
 		# Agrega la linea al hash si se marco para ser procesada y si contiene un dominio
-		if ($keep and $_ =~ /($domain_regex)/)
+		if ($keep and $_ =~ /($domain_regex)/i)
 		{
 			$domains{$1}++;
 			logmsg($LOGFILE,$1) if ($verbose);
 		}
-		if ($_ =~ /$Subject_regex/)
+		if ($_ =~ /$Subject_regex/i)
 		{
 			$subjects{$1}++;
 			$tot_subject++;
 		}
+		if ($_ =~ /($url_regex)/i)
+		{
+			$url{$3}++;
+		}
 	}
-	#printBlacklist();
+#	printBlacklist();
 	# Domains
 	processDomains();
 	resolveDomains() if ($resolve);
-	printResolvedDomains();
-	printSourceAddresses();
+#	printResolvedDomains();
+#	printSourceAddresses();
 	# Source Addresses
 	backlistedSourceAddresses();
-	printBlacklistedAddresses();
+#	printBlacklistedAddresses();
 	# Mail Addresses
 	processMailAddresses();
 	# Subjects
 	printSubjects();
 	blacklistSubjects();
-	printSubjectsBlacklist();
+#	printSubjectsBlacklist();
 	# Attachments
-	print "<hr/>\n";
-	saveAttachments();
+	# saveAttachments();
+#	printURLDomain();
+	checkDomainBlacklist();
+	checkPatternBlacklist();
+#	printDomainBlacklisted();
+#	printPatternBlacklisted();
 	report();
+	print "<hr/>\n";
 	print $html;
 	print $OUTFILE $html;
 }

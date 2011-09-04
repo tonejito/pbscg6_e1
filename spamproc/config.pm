@@ -9,7 +9,7 @@ require Exporter;
 our @ISA = qw(Exporter);  
 our @EXPORT=qw($verbose $debug $resolve $top $input $INPUT $domain_bl $DOMAIN_BL %blacklist_domain $pattern_bl $PATTERN_BL %blacklist_pattern $ip_bl $IP_BL %blacklist_ip $logfile $LOGFILE $outfile $OUTFILE $out_url $OUT_URL $usrfile $USRFILE $out_bindir);
 
-our $verbose	= 1;
+our $verbose	= 0;
 our $debug	= 0;
 # Si es 1 resuelve las direcciones IP a dominios
 our $resolve = 0;
@@ -30,19 +30,19 @@ our %blacklist_ip;
 # Output
 our $logfile	= "/tmp/log";
 our $LOGFILE	= *LOGFILE;
-our $outfile	= "/tmp/files/reporte.html";
+our $outfile	= "/tmp/index.html";
 our $OUTFILE	= *OUTFILE;
 our $out_url	= "output.url";
 our $OUT_URL	= *OUT_URL;
 our $usrfile	= "output.user";
 our $USRFILE	= *USRFILE;
 # Output Directory
-our $out_bindir	= "/tmp/dir/";
+our $out_bindir	= "/tmp/files/";
 
 # = ^ . ^ =
 1;
 
-=Begin NaturalDocs
+=begin NaturalDocs
 	Package: spamproc::config
 	Description: Archivo de configuracion del programa.
 =cut

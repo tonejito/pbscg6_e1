@@ -66,6 +66,7 @@ sub report
 {
 	$html.="<html>"."\n";
 	$html.="<head>"."\n";
+	$html.="<meta http-equiv='Content-Type' content='text/html; charset=utf-8'>"."\n";
 	$html.="<title>Proyecto Perl - Plan de Becarios de Seguridad en Cómputo</title>"."\n";
 	$html.=$style."\n";
 	$html.="</head>"."\n";
@@ -99,7 +100,7 @@ sub one
 	foreach my $addr (sort {$addresses{$b} <=> $addresses{$a}} keys %addresses)
 	{
 		$html.='<tr><td class="center">'.$i.'</td><td class="left">'.$addr.'</td><td class="center">'.$addresses{$addr}.'</td></tr>'."\n";
-		last if ($i == 20);
+		last if ($i == $top);
 		$i++;
 	}
 	$html.='</table>'."\n";
@@ -112,7 +113,7 @@ sub one
 	foreach my $addr (sort {$blacklistedAddresses{$a} <=> $blacklistedAddresses{$b}} keys %blacklistedAddresses)
 	{
 		$html.='<tr><td class="center">'.$i.'</td><td class="left">'.$addr.'</td><td class="center">'.$blacklistedAddresses{$addr}.'</td><td class="center">'.'OK'.'</td></tr>'."\n";
-		last if ($i == 20);
+		last if ($i == $top);
 		$i++;
 	}
 	$html.='</table>'."\n";
@@ -129,7 +130,7 @@ sub two
 	foreach my $d (sort {$domains{$b} <=> $domains{$a}} keys %domains)
 	{
 		$html.='<tr><td class="center">'.$i.'</td><td class="left">'.$d.'</td><td class="center">'.$domains{$d}.'</td></tr>'."\n";
-		last if ($i == 20);
+		last if ($i == $top);
 		$i++;
 	}
 	$html.='</table>'."\n";
@@ -146,7 +147,7 @@ sub three
 	foreach my $d (sort {$dst_domains{$b} <=> $dst_domains{$a}} keys %dst_domains)
 	{
 		$html.='<tr><td class="center">'.$i.'</td><td class="left">'.$d.'</td><td class="center">'.$dst_domains{$d}.'</td></tr>'."\n";
-		last if ($i == 20);
+		last if ($i == $top);
 		$i++;
 	}
 	$html.='</table>'."\n";
@@ -163,7 +164,7 @@ sub four
 	foreach my $item (sort {$subjects{$b} <=> $subjects{$a}} keys %subjects)
 	{
 		$html.='<tr><td class="center">'.$i.'</td><td class="left">'.$item.'</td><td class="center">'.$subjects{$item}.'</td></tr>'."\n";
-		last if ($i == 20);
+		last if ($i == $top);
 		$i++;
 	}
 	$html.='</table>'."\n";
@@ -179,7 +180,7 @@ sub four
 		my $matches = isBlacklistedSubject($item);
 		$matches =~ s/\t/<br\/>/g;
 		$html.='<tr><td class="center">'.$i.'</td><td class="left">'.$item.'</td><td class="center">'.$blacklistedSubjects{$item}.'</td><td class="center">'.'OK'.'</td><td class="center">'.$matches.'</td></tr>'."\n";
-		last if ($i == 20);
+		last if ($i == $top);
 		$i++;
 	}
 	$html.='</table>'."\n";
@@ -192,13 +193,37 @@ sub five
 	my $i = 1;
 	$html.='<table class="gridtable">'."\n";
 	$html.='<caption>'.'URL de lista negra'.'</caption>'."\n";
-	$html.='<tr><th>#</th><th>Dominio</th><th>Incidencias</th><th>Blacklist Dominio</th><th>Blacklist Patron</th><th>dominio/patron</th></tr>'."\n";
-	#foreach my $item (%hash)
-	#{
-	#	$html.='<tr><td class="center">'.$i.'</td><td class="center">'.$item.'</td><td class="center">'."###".'</td><td class="center">'."OK".'</td><td class="center">'."OK".'</td><td class="center">'."".'</td></tr>'."\n";
-	#	last if ($i == 20);
-	#	$i++;
-	#}
+	$html.='<tr><th>#</th><th>Dominio</th><th>Incidencias</th><th>Blacklist Dominio</th><th>Blacklist Patron</th></tr>'."\n";
+	foreach my $item (sort {$url{$b} <=> $url{$a}} keys %url)
+	{
+		if ($url_blacklisted_domain{$item} or $url_blacklisted_pattern{$item})
+		{
+			my $dom;
+			my $pat;
+			if ($url_blacklisted_domain{$item})
+			{
+				$dom = $url_blacklisted_domain{$item};
+				$dom =~ s/\n/<br\/>/g;
+			}
+			else
+			{
+				$dom = "";
+			}
+			if ($url_blacklisted_pattern{$item})
+			{
+				$pat = $url_blacklisted_pattern{$item};
+				$pat =~ s/\n/<br\/>/g;
+			}
+			else
+			{
+				$pat = "";
+			}
+			
+			$html.='<tr><td class="center">'.$i.'</td><td class="center">'.$item.'</td><td class="center">'.$url{$item}.'</td><td class="center">'.$dom.'</td><td class="center">'.$pat.'</td></tr>'."\n";
+			last if ($i == $top);
+			$i++;
+		}
+	}
 	$html.='</table>'."\n";
 	$html.='<br/>'."\n";
 }
@@ -213,7 +238,7 @@ sub six
 	#foreach my $item (%hash)
 	#{
 	#	$html.='<tr><td class="center">'.$i.'</td><td class="center">'.$item.'</td><td class="center">'."###".'</td><td class="center">'."OK".'</td><td class="center">'."https://localhost:443/".'</td></tr>'."\n";
-	#	last if ($i == 20);
+	#	last if ($i == $top);
 	#	$i++;
 	#}
 	$html.='</table>'."\n";
